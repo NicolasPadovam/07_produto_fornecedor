@@ -36,7 +36,7 @@ public class Util {
                     pesquisaProduto();
                     break;
                 case 3:
-                    pesquisaFornecedor();
+                    pesquisar();
                     break;
                 default:
                     showMessageDialog(null, "Opção inválida");
@@ -76,28 +76,28 @@ public class Util {
         return fornecedor[indexFornecedor - 1];
     }
 
-
     private void pesquisaProduto() {
         //aux nasce com produto nao encontrado para caso não encontre no for, ja aparece uma mensagem
         String aux = "Produto não encontrado";
         String nome = showInputDialog("Nome do produto: ");
 
         for (int i = 0; i < indexProduto; i++) {
-            if (produto[i].getNome().equalsIgnoreCase(nome)){
+            if (produto[i].getNome().equalsIgnoreCase(nome)) {
                 //aux = "" -> zera a variavel
                 aux = "";
-                aux += "Nome do produto: "+nome +"\n";
-                aux += "Valor unitário do produto: "+produto[i].getValor() +"\n";
-                aux += "Fornecedor do produto: "+produto[i].getFornecedor().getNome() +"\n";
-                aux += "Quantidade do produto: "+produto[i].getQtd() +"\n";
+                aux += "Nome do produto: " + nome + "\n";
+                aux += "Valor unitário do produto: " + produto[i].getValor() + "\n";
+                aux += "Fornecedor do produto: " + produto[i].getFornecedor().getNome() + "\n";
+                aux += "Quantidade do produto: " + produto[i].getQtd() + "\n";
             }
         }
-        showMessageDialog(null,aux);
+        showMessageDialog(null, aux);
 
     }
 
+    //metodo para acessar o valor
     private Fornecedor pesquisaFornecedor() {
-        long cnpj = parseLong(showInputDialog("Digite o CNPJ"));
+        long cnpj = parseLong(showInputDialog("Digite o CNPJ: "));
 
         //para acessar o objeto
         for (int i = 0; i < indexFornecedor; i++) {
@@ -107,6 +107,20 @@ public class Util {
         }
         showMessageDialog(null, "Esse cnpj não está cadastrado");
         return null;
+    }
+
+    //metodo para mostrar na tela
+    private void pesquisar() {
+        String aux = "";
+        Fornecedor fornecedor = pesquisaFornecedor();
+
+        if (fornecedor != null) {
+            aux += "Fornecedor: " + fornecedor.getNome() + "\n";
+            aux += "CNPJ: "+fornecedor.getCnpj() + "\n";
+            showMessageDialog(null, aux);
+        }
+
+
     }
 
 
